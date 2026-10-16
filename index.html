@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How Far from Clinical Deployment? Evaluating the Complete UDA Pipeline in Medical Imaging</title>
+  <meta name="description"
+        content="WACV 2027 evaluation study of the complete unsupervised domain adaptation pipeline in medical imaging: eleven cross-domain scenarios, ten UDA algorithms, 13 label-free validators, and over 80,000 trained checkpoints.">
+  <meta name="keywords"
+        content="unsupervised domain adaptation, model selection, medical imaging, benchmark, label-free validation, WACV 2027">
+  <meta name="author"
+        content="Yiheng Xiong, Luisa Gallée, Daniel Santak Wolf, Heiko Hillenhagen, Michael Götz">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="How Far from Clinical Deployment? Evaluating the Complete UDA Pipeline in Medical Imaging">
+  <meta property="og:description"
+        content="A WACV 2027 study of the complete UDA pipeline: adaptation and label-free model selection across eleven medical cross-domain scenarios.">
+  <meta property="og:image" content="./static/images/teaser.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Far from Clinical Deployment? Evaluating the Complete UDA Pipeline in Medical Imaging">
+  <meta name="twitter:description"
+        content="Eleven cross-domain scenarios, ten UDA algorithms, 13 validators, over 80,000 trained checkpoints.">
+  <meta name="twitter:image" content="./static/images/teaser.png">
+  <meta name="theme-color" content="#0e6e82">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg" type="image/svg+xml">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/results-data.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-brand-name" href="#top">Complete UDA Pipeline</a>
+      <a role="button" class="navbar-burger" aria-label="Open menu" aria-expanded="false"
+         data-target="mainNav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="mainNav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#overview">Overview</a>
+        <a class="navbar-item" href="#results">Results</a>
+        <a class="navbar-item" href="#findings">Findings</a>
+        <a class="navbar-item" href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero-top" id="top">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <span class="venue-pill">WACV 2027</span>
+          <h1 class="title is-1 publication-title">
+            How Far from Clinical Deployment? Evaluating the Complete Unsupervised
+            Domain Adaptation Pipeline in Medical Imaging
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://xiongyiheng.github.io/" target="_blank" rel="noopener">Yiheng Xiong</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Luisa Gallée</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Daniel Santak Wolf</a><sup>1,2</sup>,</span>
+            <span class="author-block"><a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Heiko Hillenhagen</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Michael Götz</a><sup>1</sup></span>
+          </div>
+
+          <div class="affiliation">
+            <span class="author-block"><sup>1</sup><a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Section of Experimental Radiology</a>, Ulm University Medical Center</span><br>
+            <span class="author-block"><sup>2</sup><a href="https://viscom.uni-ulm.de/" target="_blank" rel="noopener">Visual Computing Group</a>, Ulm University</span>
+          </div>
+
+          <p class="one-liner">
+            A capable adapted model usually exists. The hard part is selecting it without
+            target labels — and that selection gap is what keeps UDA from clinical use.
+          </p>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="./static/pdf/paper.pdf"
+                 class="external-link button is-normal is-rounded is-accent">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="./static/pdf/supplementary.pdf"
+                 class="external-link button is-normal is-rounded is-soft">
+                <span class="icon"><i class="fas fa-file-alt"></i></span>
+                <span>Supplementary</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/xiongyiheng/Complete-Unsupervised-Domain-Adaptation-Pipeline"
+                 target="_blank" rel="noopener"
+                 class="external-link button is-normal is-rounded is-soft">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2608.12035"
+                 target="_blank" rel="noopener"
+                 class="external-link button is-normal is-rounded is-soft">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEASER ================= -->
+<section class="section" style="padding-top: 2.5rem;">
+  <div class="container is-max-desktop">
+    <figure class="teaser-figure">
+      <picture>
+        <source srcset="./static/images/teaser.webp" type="image/webp">
+        <img src="./static/images/teaser.png"
+             alt="Diagram of the complete UDA pipeline at deployment: adaptation combines UDA algorithms and hyperparameters to produce many trained models, and a question mark asks which one to select for deployment."
+             width="1400" height="629" loading="eager" decoding="async">
+      </picture>
+      <figcaption class="figure-caption">
+        <strong>The complete UDA pipeline at deployment.</strong> Adaptation trains models on a labeled
+        source domain and an unlabeled target domain, producing many candidate models. At deployment, one
+        model must be selected — yet without target labels they cannot be evaluated directly to decide which.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= OVERVIEW ================= -->
+<section class="section is-soft" id="overview">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">Research Overview</p>
+      <h2 class="section-title">Abstract</h2>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Deploying unsupervised domain adaptation (UDA) in clinical practice requires choosing which
+            algorithm to use and which of its trained models to ship. However, the deployment (target) domain
+            is unlabeled, so models cannot be evaluated directly on it, leaving it unclear which to select.
+            We address this by evaluating the complete UDA pipeline, considering both adaptation and label-free
+            selection together. Our study covers eleven clinically relevant cross-domain scenarios from nine
+            medical imaging datasets, with ten UDA algorithms and 13 label-free selection methods
+            (validators), evaluating over 80,000 trained models in total. We find that a capable adapted model
+            usually exists, but identifying it without target labels is difficult: the validator-selected models
+            leave a large and structural target performance gap to the best available one, with no evaluated
+            validator consistently reliable. Towards closing it, we explore ensembling and a small target-labeling
+            budget; both narrow this gap but do not close it entirely. Overall, deployable UDA depends on the
+            complete pipeline; addressing the less explored selection step could bring much of current UDA closer
+            to clinical use.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">11</div>
+        <div class="stat-label">Cross-domain scenarios</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">10</div>
+        <div class="stat-label">UDA algorithms</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">13</div>
+        <div class="stat-label">Label-free validators</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">80,000+</div>
+        <div class="stat-label">Trained checkpoints</div>
+      </div>
+    </div>
+    <p class="scenario-note" style="text-align: center; margin-top: 1rem;">
+      Brain MRI, chest X-ray, and retinal imaging · nine datasets · balanced accuracy on the target
+      validation set.
+    </p>
+  </div>
+</section>
+
+<!-- ================= RESULTS ================= -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">What's the problem</p>
+      <h2 class="section-title">A capable model exists — selecting it is the problem</h2>
+      <p class="section-lead">
+        Under <em>Oracle</em> selection (using target labels) adaptation is often effective. The models chosen
+        by label-free validators, however, leave a large gap to the best available one.
+      </p>
+    </div>
+
+    <figure class="figure-block is-zoomable">
+      <button type="button" class="figure-zoom" aria-label="Enlarge figure: adaptation works in principle">
+        <img src="./static/images/figures/adaptation_effective_cropped.png"
+             alt="Grouped bar chart of target accuracy under Oracle selection across eleven UDA scenarios for SourceOnly, per-algorithm average, Across-Algo, and TargetOnly."
+             loading="lazy" decoding="async">
+      </button>
+      <figcaption class="figure-caption">
+        <strong>Adaptation works in principle.</strong> Target accuracy under <em>Oracle</em> selection across
+        UDA scenarios. Bars show <em>SourceOnly</em> (no adaptation), the per-algorithm average
+        (<strong>Avg.</strong>), <strong>Across-Algo</strong> (selection over all algorithms' pooled
+        checkpoints), and <em>TargetOnly</em> (labeled-target). <strong>Across-Algo</strong> exceeds
+        <em>SourceOnly</em> in all scenarios and approaches <em>TargetOnly</em> (mean 84.5% vs. 87.5%).
+        <button type="button" class="zoom-hint">View full size</button>
+      </figcaption>
+    </figure>
+
+    <figure class="figure-block is-zoomable">
+      <button type="button" class="figure-zoom" aria-label="Enlarge figure: a large selection gap">
+        <img src="./static/images/figures/selection_gap_cropped.png"
+             alt="Grouped bar chart of target accuracy across UDA scenarios for Best Validator, Best Pair, and Oracle selection."
+             loading="lazy" decoding="async">
+      </button>
+      <figcaption class="figure-caption">
+        <strong>A large selection gap.</strong> The model selected by the best validator
+        (<strong>Best Validator</strong>), by the best algorithm–validator pair (<strong>Best Pair</strong>),
+        and by the across-algorithm <em>Oracle</em>. The first two fall below the <em>Oracle</em> in every
+        scenario, with the gap up to 10.6 points and averaging 6.4. Both are themselves chosen using target
+        labels, so the gap realized at deployment can only be larger.
+        <button type="button" class="zoom-hint">View full size</button>
+      </figcaption>
+    </figure>
+
+    <hr class="section-rule" style="margin: 2.5rem 0;">
+
+    <h3 class="title is-4" style="color: var(--ink);">Full per-scenario results</h3>
+    <p class="scenario-note" style="margin-bottom: 1rem;">
+      Target accuracy (%,
+      <span id="caption-stat">mean ± std</span>) of the checkpoint a validator selects for an algorithm.
+      <strong>Avg.</strong> is the mean over per-algorithm columns, and <strong>Across-Algo</strong> pools the
+      checkpoints of all algorithms and selects across them. <em>Oracle</em> selects using target labels,
+      <em>SourceOnly</em> is trained on source data only, and <em>TargetOnly</em> on labeled target data.
+      Hover a cell to see the <span id="caption-hint">standard deviation</span>.
+    </p>
+
+    <div class="table-controls">
+      <label for="scenario-select">Scenario</label>
+      <div class="select">
+        <select id="scenario-select" aria-label="Select cross-domain scenario"></select>
+      </div>
+      <div class="segmented" role="group" aria-label="Statistic">
+        <button type="button" data-stat="mean" class="is-active">Mean ± std</button>
+        <button type="button" data-stat="median">Median (95% CI)</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table" id="results-table">
+        <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Complete UDA results for the selected scenario</caption>
+        <thead id="results-thead"></thead>
+        <tbody id="results-tbody"></tbody>
+      </table>
+    </div>
+    <p class="table-caption">
+      Full results for all eleven scenarios, including median with 95% confidence intervals, are in the
+      <a href="./static/pdf/supplementary.pdf" target="_blank" rel="noopener">supplementary material</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ================= RELIABILITY ================= -->
+<section class="section is-soft" id="reliability">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">Where the gap comes from</p>
+      <h2 class="section-title">The gap is structural</h2>
+      <p class="section-lead">
+        Selection is a ranking problem, so we measure validator reliability by the Spearman rank correlation ρ
+        between validation scores and true target accuracy. Pooled across algorithms, most validators are weak or
+        even reversed.
+      </p>
+    </div>
+
+    <figure class="figure-block is-zoomable" style="max-width: 660px; margin-left: auto; margin-right: auto;">
+      <button type="button" class="figure-zoom" aria-label="Enlarge figure: across-algorithm Spearman correlation">
+        <img src="./static/images/figures/spearman_heatmap_global_cropped.png"
+             alt="Heatmap of across-algorithm Spearman correlation for all validators and scenarios."
+             loading="lazy" decoding="async">
+      </button>
+      <figcaption class="figure-caption">
+        <strong>Across-algorithm Spearman correlation ρ.</strong> Blue denotes correlation in the intended
+        direction (darker is stronger), warm red the opposite. Most cells are weak or negative: once checkpoints
+        from different algorithms are pooled, no evaluated validator is consistently reliable.
+        <button type="button" class="zoom-hint">View full size</button>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= STRATEGIES ================= -->
+<section class="section" id="strategies">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">Towards closing the gap</p>
+      <h2 class="section-title">Two strategies to narrow the gap</h2>
+      <p class="section-lead">
+        In the absence of a consistently reliable validator, both strategies recover much of the achievable
+        performance — but neither closes the gap to the <em>Oracle</em> entirely.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Scenario</th><th>Ens.</th>
+            <th>B<sub>1</sub></th><th>B<sub>2</sub></th><th>B<sub>3</sub></th>
+            <th>B<sub>4</sub></th><th>B<sub>5</sub></th>
+            <th>Best Val.</th><th>Oracle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ADNI-1 → ADNI-2</td><td>89.3</td><td>78.6</td><td>83.0</td><td>84.0</td><td>86.5</td><td>87.5</td><td>85.1</td><td>93.2</td></tr>
+          <tr><td>ADNI-1 → ADNI-3</td><td>87.3</td><td>78.7</td><td>80.8</td><td>81.1</td><td>81.2</td><td>83.3</td><td>84.5</td><td>94.2</td></tr>
+          <tr><td>ADNI-2 → ADNI-1</td><td>83.2</td><td>80.4</td><td>79.1</td><td>81.5</td><td>82.6</td><td>84.0</td><td>84.4</td><td>89.5</td></tr>
+          <tr><td>ADNI-2 → ADNI-3</td><td>87.2</td><td>79.5</td><td>79.9</td><td>83.5</td><td>81.3</td><td>83.6</td><td>84.2</td><td>92.1</td></tr>
+          <tr><td>ADNI-1+2 → AIBL</td><td>89.4</td><td>81.6</td><td>82.9</td><td>82.9</td><td>85.1</td><td>86.0</td><td>89.0</td><td>93.8</td></tr>
+          <tr><td>RSNA → Child CXR</td><td>79.8</td><td>76.6</td><td>78.4</td><td>81.5</td><td>83.1</td><td>85.0</td><td>79.1</td><td>89.7</td></tr>
+          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>74.3</td><td>75.8</td><td>76.3</td><td>76.9</td><td>76.9</td><td>75.3</td><td>78.3</td></tr>
+          <tr><td>LDD → CRD</td><td>81.3</td><td>80.2</td><td>81.6</td><td>82.0</td><td>82.2</td><td>82.1</td><td>81.9</td><td>83.6</td></tr>
+          <tr><td>CRD → LDD</td><td>56.9</td><td>75.9</td><td>78.1</td><td>80.2</td><td>79.7</td><td>80.4</td><td>73.1</td><td>82.7</td></tr>
+          <tr><td>SLO → OCT</td><td>63.1</td><td>58.9</td><td>61.2</td><td>60.8</td><td>61.3</td><td>62.6</td><td>60.1</td><td>65.6</td></tr>
+          <tr><td>OCT → SLO</td><td>66.4</td><td>60.0</td><td>60.9</td><td>63.5</td><td>64.5</td><td>64.4</td><td>62.7</td><td>67.4</td></tr>
+          <tr class="is-reference"><td>Mean</td><td>78.0</td><td>75.0</td><td>76.5</td><td>77.9</td><td>78.6</td><td>79.6</td><td>78.1</td><td>84.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-caption">
+      Target accuracy (%). <strong>Ens.</strong> ensembles the checkpoints selected by all validators across
+      all algorithms. <strong>Small Labeling Budget</strong> selects the best checkpoint on a small labeled
+      target subset, at five levels (B<sub>1</sub>–B<sub>5</sub>; 5–25 samples for brain MRI, 1–5%
+      otherwise). On average, ensembling matches <strong>Best Val.</strong> and the labeling budget surpasses
+      both from around B<sub>4</sub>, though a gap to the <em>Oracle</em> remains for both.
+    </p>
+  </div>
+</section>
+
+<!-- ================= FINDINGS ================= -->
+<section class="section is-soft" id="findings">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">Takeaways</p>
+      <h2 class="section-title">Findings</h2>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="takeaway">
+          <div class="takeaway-num">1</div>
+          <div>
+            <h3>A capable adapted model usually exists</h3>
+            <p>
+              Under Oracle selection, the across-algorithm pool exceeds SourceOnly in every scenario and
+              approaches TargetOnly (mean 84.5% vs. 87.5%). Adaptation itself is often effective.
+            </p>
+          </div>
+        </div>
+        <div class="takeaway">
+          <div class="takeaway-num">2</div>
+          <div>
+            <h3>Selecting it without labels is the bottleneck</h3>
+            <p>
+              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 6.4. Because the
+              best validator is itself chosen using target labels, the gap at deployment can only be larger.
+            </p>
+          </div>
+        </div>
+        <div class="takeaway">
+          <div class="takeaway-num">3</div>
+          <div>
+            <h3>The gap is structural</h3>
+            <p>
+              No evaluated validator is consistently reliable. Which validator works best shifts by algorithm and
+              scenario, and once checkpoints from different algorithms are pooled, most correlate only weakly or in
+              reverse with target performance.
+            </p>
+          </div>
+        </div>
+        <div class="takeaway">
+          <div class="takeaway-num">4</div>
+          <div>
+            <h3>Ensembling and a small labeling budget help — but do not close the gap</h3>
+            <p>
+              Ensembling across algorithms and validators matches the best validator on average, and a small
+              target-labeling budget surpasses it from around 4% labeled. Both recover much of the achievable
+              performance but remain below the Oracle, each with practical costs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BIBTEX ================= -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <p class="section-kicker">Citation</p>
+      <h2 class="section-title">BibTeX</h2>
+      <p class="section-lead">
+        If you find this work useful, please cite the arXiv preprint. Final WACV 2027 proceedings metadata
+        such as page numbers and DOI are not yet assigned.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="bibtex-wrap">
+          <button class="copy-btn" id="copy-bibtex" type="button" aria-label="Copy BibTeX to clipboard">
+            <i class="fas fa-copy"></i> Copy
+          </button>
+<pre id="bibtex-code"><code>@article{xiong2026far,
+  title={How far from clinical deployment? evaluating the complete unsupervised domain adaptation pipeline in medical imaging},
+  author={Xiong, Yiheng and Gall{\'e}e, Luisa and Wolf, Daniel Santak and Hillenhagen, Heiko and G{\"o}tz, Michael},
+  journal={arXiv preprint arXiv:2608.12035},
+  year={2026}
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="./static/pdf/paper.pdf" title="Paper PDF">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link"
+         href="https://github.com/xiongyiheng/Complete-Unsupervised-Domain-Adaptation-Pipeline"
+         title="Source code" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            <strong>How Far from Clinical Deployment?</strong><br>
+            <a href="https://xrad-ulm.github.io/" target="_blank" rel="noopener">Section of Experimental Radiology</a>,
+            Ulm University Medical Center ·
+            <a href="https://viscom.uni-ulm.de/" target="_blank" rel="noopener">Visual Computing Group</a>,
+            Ulm University
+          </p>
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+            Attribution-ShareAlike 4.0 International License</a>. The page is built on the
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> website template.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close enlarged figure">
+    <i class="fas fa-xmark"></i>
+  </button>
+  <img id="lightbox-img" src="" alt="">
+  <p class="lightbox-hint">Click outside or press Esc to close</p>
+</div>
+
+</body>
+</html>
