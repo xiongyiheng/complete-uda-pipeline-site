@@ -44,7 +44,6 @@ static/js/index.js          navbar, results table, lightbox, copy-to-clipboard
 static/js/results-data.js   machine-readable per-scenario result tables
 static/images/teaser.png    hero teaser figure (webp fallback: teaser.webp)
 static/images/figures/      result figures (converted from the paper PDFs)
-static/pdf/paper.pdf        camera-ready paper (local copy; site links to arXiv)
 ```
 
 ## Updating metadata
