@@ -44,13 +44,12 @@ static/js/index.js          navbar, results table, lightbox, copy-to-clipboard
 static/js/results-data.js   machine-readable per-scenario result tables
 static/images/teaser.png    hero teaser figure (webp fallback: teaser.webp)
 static/images/figures/      result figures (converted from the paper PDFs)
-static/pdf/paper.pdf        camera-ready paper
-static/pdf/supplementary.pdf supplementary material
+static/pdf/paper.pdf        camera-ready paper (local copy; site links to arXiv)
 ```
 
 ## Updating metadata
 
-- **arXiv**: linked to <https://arxiv.org/abs/2608.12035> in the hero and resources.
+- **Paper / arXiv**: all paper links point to <https://arxiv.org/pdf/2608.12035> (abstract page: <https://arxiv.org/abs/2608.12035>).
 - **BibTeX**: currently cites the arXiv preprint. Once WACV assigns proceedings details, update the entry
   to an `@inproceedings` with the final page numbers and DOI.
 
