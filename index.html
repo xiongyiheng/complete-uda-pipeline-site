@@ -137,8 +137,9 @@
       </picture>
       <figcaption class="figure-caption">
         <strong>The complete UDA pipeline at deployment.</strong> Adaptation trains models on a labeled
-        source domain and an unlabeled target domain, producing many candidate models. At deployment, one
-        model must be selected — yet without target labels they cannot be evaluated directly to decide which.
+        source domain (here SLO) and an unlabeled target domain (here OCT), producing many candidate models that
+        vary in UDA algorithm and hyperparameter configuration. At deployment, one model needs to be selected — yet
+        without target labels they cannot be evaluated directly to decide which.
       </figcaption>
     </figure>
   </div>
@@ -161,11 +162,11 @@
             We address this by evaluating the complete UDA pipeline, considering both adaptation and label-free
             selection together. Our study covers eleven clinically relevant cross-domain scenarios from nine
             medical imaging datasets, with ten UDA algorithms and 13 label-free selection methods
-            (validators), evaluating over 80,000 trained models in total. We find that a capable adapted model
+            (validators), evaluating over 80,000 trained models in total. By this, we find that a capable adapted model
             usually exists, but identifying it without target labels is difficult: the validator-selected models
             leave a large and structural target performance gap to the best available one, with no evaluated
-            validator consistently reliable. Towards closing it, we explore ensembling and a small target-labeling
-            budget; both narrow this gap but do not close it entirely. Overall, deployable UDA depends on the
+            validator consistently reliable. Towards closing it, we explore two strategies, ensembling and a small
+            target-labeling budget; both narrow this gap but do not close it entirely. Overall, deployable UDA depends on the
             complete pipeline; addressing the less explored selection step could bring much of current UDA closer
             to clinical use.
           </p>
@@ -236,11 +237,37 @@
         <strong>A large selection gap.</strong> The model selected by the best validator
         (<strong>Best Validator</strong>), by the best algorithm–validator pair (<strong>Best Pair</strong>),
         and by the across-algorithm <em>Oracle</em>. The first two fall below the <em>Oracle</em> in every
-        scenario, with the gap up to 10.6 points and averaging 6.4. Both are themselves chosen using target
-        labels, so the gap realized at deployment can only be larger.
+        scenario, with the gap up to 10.6 points (RSNA → Child CXR) and averaging 5.9. Both differ from scenario
+        to scenario and are themselves chosen using target labels, so the gap realized at deployment can only be
+        larger.
         <button type="button" class="zoom-hint">View full size</button>
       </figcaption>
     </figure>
+
+
+    <h3 class="title is-5" style="color: var(--ink); margin-top: 2rem;">The selection gap persists across architectures</h3>
+    <p class="scenario-note" style="margin-bottom: 1rem;">
+      Repeating RSNA → Child CXR with three further backbone families — ConvNeXt (modern CNN), ResMLP (MLP-based),
+      and DeiT (vision transformer) — the model selected by the best validator still leaves a noticeable gap to the
+      <em>Oracle</em> for every architecture.
+    </p>
+    <div class="table-wrap" style="max-width: 520px; margin-left: auto; margin-right: auto;">
+      <table class="data-table">
+        <thead>
+          <tr><th>Backbone</th><th>Best Val.</th><th>Oracle</th><th>Δ Oracle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ResNet-50</td><td>79.1</td><td>89.7</td><td>10.6</td></tr>
+          <tr><td>ResMLP</td><td>70.9</td><td>79.2</td><td>8.3</td></tr>
+          <tr><td>ConvNeXt</td><td>82.6</td><td>90.2</td><td>7.6</td></tr>
+          <tr><td>DeiT</td><td>80.4</td><td>86.5</td><td>6.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-caption">
+      Target accuracy (%) on RSNA → Child CXR. <strong>Best Val.</strong> is the model selected by the best
+      validator under the across-algorithm pool, and <em>Oracle</em> the actual best model.
+    </p>
 
     <hr class="section-rule" style="margin: 2.5rem 0;">
 
@@ -274,7 +301,7 @@
     </div>
     <p class="table-caption">
       Full results for all eleven scenarios, including median with 95% confidence intervals, are reported
-      in the <a href="https://arxiv.org/pdf/2608.12035" target="_blank" rel="noopener">paper</a>.
+      in the supplementary material of the <a href="https://arxiv.org/pdf/2608.12035" target="_blank" rel="noopener">paper</a>.
     </p>
   </div>
 </section>
@@ -287,10 +314,46 @@
       <h2 class="section-title">The gap is structural</h2>
       <p class="section-lead">
         Selection is a ranking problem, so we measure validator reliability by the Spearman rank correlation ρ
-        between validation scores and true target accuracy. Pooled across algorithms, most validators are weak or
+        between validation scores and true target accuracy. Within an algorithm, the most reliable validator shifts
+        from scenario to scenario and algorithm to algorithm; pooled across algorithms, most validators are weak or
         even reversed.
       </p>
     </div>
+
+    <div class="columns">
+      <div class="column is-half">
+        <figure class="figure-block is-zoomable">
+          <button type="button" class="figure-zoom" aria-label="Enlarge figure: within-algorithm Spearman correlation, per-scenario view">
+            <img src="./static/images/figures/spearman_heatmap_local_scenario_cropped.png"
+                 alt="Heatmap of within-algorithm Spearman correlation per validator and scenario, averaged over algorithms."
+                 loading="lazy" decoding="async">
+          </button>
+          <figcaption class="figure-caption">
+            <strong>(a) Per-scenario view</strong> (averaged over algorithms).
+            <button type="button" class="zoom-hint">View full size</button>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <figure class="figure-block is-zoomable">
+          <button type="button" class="figure-zoom" aria-label="Enlarge figure: within-algorithm Spearman correlation, per-algorithm view">
+            <img src="./static/images/figures/spearman_heatmap_local_algo_cropped.png"
+                 alt="Heatmap of within-algorithm Spearman correlation per validator and algorithm, averaged over scenarios."
+                 loading="lazy" decoding="async">
+          </button>
+          <figcaption class="figure-caption">
+            <strong>(b) Per-algorithm view</strong> (averaged over scenarios).
+            <button type="button" class="zoom-hint">View full size</button>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="figure-caption" style="margin-top: -0.5rem; margin-bottom: 2rem;">
+      <strong>Within-algorithm Spearman correlation ρ.</strong> Blue denotes correlation in the intended direction
+      (darker is stronger), warm red the opposite. Validators are moderately informative on average, but none is
+      consistently reliable across all scenarios or algorithms, and the most reliable one differs from column to
+      column — e.g. Source-Risk reaches ρ = 0.68 on ADNI-2 → ADNI-3 but drops to 0.08 on Child CXR → RSNA.
+    </p>
 
     <figure class="figure-block is-zoomable" style="max-width: 660px; margin-left: auto; margin-right: auto;">
       <button type="button" class="figure-zoom" aria-label="Enlarge figure: across-algorithm Spearman correlation">
@@ -331,18 +394,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>ADNI-1 → ADNI-2</td><td>89.3</td><td>78.6</td><td>83.0</td><td>84.0</td><td>86.5</td><td>87.5</td><td>85.1</td><td>93.2</td></tr>
-          <tr><td>ADNI-1 → ADNI-3</td><td>87.3</td><td>78.7</td><td>80.8</td><td>81.1</td><td>81.2</td><td>83.3</td><td>84.5</td><td>94.2</td></tr>
-          <tr><td>ADNI-2 → ADNI-1</td><td>83.2</td><td>80.4</td><td>79.1</td><td>81.5</td><td>82.6</td><td>84.0</td><td>84.4</td><td>89.5</td></tr>
-          <tr><td>ADNI-2 → ADNI-3</td><td>87.2</td><td>79.5</td><td>79.9</td><td>83.5</td><td>81.3</td><td>83.6</td><td>84.2</td><td>92.1</td></tr>
-          <tr><td>ADNI-1+2 → AIBL</td><td>89.4</td><td>81.6</td><td>82.9</td><td>82.9</td><td>85.1</td><td>86.0</td><td>89.0</td><td>93.8</td></tr>
-          <tr><td>RSNA → Child CXR</td><td>79.8</td><td>76.6</td><td>78.4</td><td>81.5</td><td>83.1</td><td>85.0</td><td>79.1</td><td>89.7</td></tr>
-          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>74.3</td><td>75.8</td><td>76.3</td><td>76.9</td><td>76.9</td><td>75.3</td><td>78.3</td></tr>
-          <tr><td>LDD → CRD</td><td>81.3</td><td>80.2</td><td>81.6</td><td>82.0</td><td>82.2</td><td>82.1</td><td>81.9</td><td>83.6</td></tr>
-          <tr><td>CRD → LDD</td><td>56.9</td><td>75.9</td><td>78.1</td><td>80.2</td><td>79.7</td><td>80.4</td><td>73.1</td><td>82.7</td></tr>
-          <tr><td>SLO → OCT</td><td>63.1</td><td>58.9</td><td>61.2</td><td>60.8</td><td>61.3</td><td>62.6</td><td>60.1</td><td>65.6</td></tr>
-          <tr><td>OCT → SLO</td><td>66.4</td><td>60.0</td><td>60.9</td><td>63.5</td><td>64.5</td><td>64.4</td><td>62.7</td><td>67.4</td></tr>
-          <tr class="is-reference"><td>Mean</td><td>78.0</td><td>75.0</td><td>76.5</td><td>77.9</td><td>78.6</td><td>79.6</td><td>78.1</td><td>84.5</td></tr>
+          <tr><td>ADNI-1 → ADNI-2</td><td>89.0</td><td>78.6</td><td>83.0</td><td>84.0</td><td>86.5</td><td>87.5</td><td>85.1</td><td>93.2</td></tr>
+          <tr><td>ADNI-1 → ADNI-3</td><td>88.2</td><td>78.7</td><td>80.8</td><td>81.1</td><td>81.2</td><td>83.3</td><td>84.5</td><td>94.2</td></tr>
+          <tr><td>ADNI-2 → ADNI-1</td><td>85.1</td><td>75.2</td><td>77.8</td><td>80.4</td><td>82.0</td><td>82.8</td><td>82.8</td><td>89.1</td></tr>
+          <tr><td>ADNI-2 → ADNI-3</td><td>86.4</td><td>79.5</td><td>79.9</td><td>83.5</td><td>81.3</td><td>83.6</td><td>84.2</td><td>92.1</td></tr>
+          <tr><td>ADNI-1+2 → AIBL</td><td>89.9</td><td>81.6</td><td>82.9</td><td>82.9</td><td>85.1</td><td>86.0</td><td>89.0</td><td>93.8</td></tr>
+          <tr><td>RSNA → Child CXR</td><td>80.0</td><td>76.5</td><td>78.4</td><td>81.5</td><td>83.1</td><td>85.0</td><td>79.1</td><td>89.7</td></tr>
+          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>74.3</td><td>75.7</td><td>76.5</td><td>76.9</td><td>76.9</td><td>75.4</td><td>78.4</td></tr>
+          <tr><td>LDD → CRD</td><td>81.8</td><td>80.8</td><td>81.4</td><td>81.9</td><td>81.7</td><td>82.2</td><td>81.9</td><td>83.5</td></tr>
+          <tr><td>CRD → LDD</td><td>54.1</td><td>77.8</td><td>78.7</td><td>80.6</td><td>80.0</td><td>80.1</td><td>78.9</td><td>83.2</td></tr>
+          <tr><td>SLO → OCT</td><td>64.0</td><td>58.8</td><td>61.3</td><td>60.4</td><td>61.1</td><td>61.7</td><td>58.4</td><td>65.3</td></tr>
+          <tr><td>OCT → SLO</td><td>66.2</td><td>59.5</td><td>59.9</td><td>63.3</td><td>64.1</td><td>63.8</td><td>65.1</td><td>67.4</td></tr>
+          <tr class="is-reference"><td>Mean</td><td>78.1</td><td>74.7</td><td>76.4</td><td>77.8</td><td>78.4</td><td>79.3</td><td>78.6</td><td>84.5</td></tr>
         </tbody>
       </table>
     </div>
@@ -350,8 +413,9 @@
       Target accuracy (%). <strong>Ens.</strong> ensembles the checkpoints selected by all validators across
       all algorithms. <strong>Small Labeling Budget</strong> selects the best checkpoint on a small labeled
       target subset, at five levels (B<sub>1</sub>–B<sub>5</sub>; 5–25 samples for brain MRI, 1–5%
-      otherwise). On average, ensembling matches <strong>Best Val.</strong> and the labeling budget surpasses
-      both from around B<sub>4</sub>, though a gap to the <em>Oracle</em> remains for both.
+      otherwise). On average, ensembling nearly matches <strong>Best Val.</strong> (the best validator under the
+      across-algorithm pool), and the labeling budget surpasses both at B<sub>5</sub>, though a gap to the
+      <em>Oracle</em> remains for both.
     </p>
   </div>
 </section>
@@ -381,7 +445,7 @@
           <div>
             <h3>Selecting it without labels is the bottleneck</h3>
             <p>
-              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 6.4. Because the
+              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 5.9. Because the
               best validator is itself chosen using target labels, the gap at deployment can only be larger.
             </p>
           </div>
@@ -402,8 +466,8 @@
           <div>
             <h3>Ensembling and a small labeling budget help — but do not close the gap</h3>
             <p>
-              Ensembling across algorithms and validators matches the best validator on average, and a small
-              target-labeling budget surpasses it from around 4% labeled. Both recover much of the achievable
+              Ensembling across algorithms and validators nearly matches the best validator on average, and a
+              small target-labeling budget surpasses both at 5% labeled (25 samples for brain MRI). Both recover much of the achievable
               performance but remain below the Oracle, each with practical costs.
             </p>
           </div>
