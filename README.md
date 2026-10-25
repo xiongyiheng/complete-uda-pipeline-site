@@ -49,8 +49,8 @@ static/images/figures/      result figures (converted from the paper PDFs)
 ## Updating metadata
 
 - **Paper / arXiv**: all paper links point to <https://arxiv.org/pdf/2608.12035> (abstract page: <https://arxiv.org/abs/2608.12035>).
-- **BibTeX**: currently cites the arXiv preprint. Once WACV assigns proceedings details, update the entry
-  to an `@inproceedings` with the final page numbers and DOI.
+- **BibTeX**: cites the WACV 2027 paper (`Xiong_2027_WACV`, CVF format). Once the proceedings are published,
+  add the final `pages` (and DOI, if any) to the entry.
 
 ## Website license
 
