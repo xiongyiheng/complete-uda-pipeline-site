@@ -222,7 +222,7 @@
         UDA scenarios. Bars show <em>SourceOnly</em> (no adaptation), the per-algorithm average
         (<strong>Avg.</strong>), <strong>Across-Algo</strong> (selection over all algorithms' pooled
         checkpoints), and <em>TargetOnly</em> (labeled-target). <strong>Across-Algo</strong> exceeds
-        <em>SourceOnly</em> in all scenarios and approaches <em>TargetOnly</em> (mean 84.5% vs. 87.5%).
+        <em>SourceOnly</em> in all scenarios and approaches <em>TargetOnly</em> (mean 84.6% vs. 87.5%).
         <button type="button" class="zoom-hint">View full size</button>
       </figcaption>
     </figure>
@@ -237,7 +237,7 @@
         <strong>A large selection gap.</strong> The model selected by the best validator
         (<strong>Best Validator</strong>), by the best algorithm–validator pair (<strong>Best Pair</strong>),
         and by the across-algorithm <em>Oracle</em>. The first two fall below the <em>Oracle</em> in every
-        scenario, with the gap up to 10.6 points (RSNA → Child CXR) and averaging 5.9. Both differ from scenario
+        scenario, with the gap up to 10.6 points (RSNA → Child CXR) and averaging 6.0. Both differ from scenario
         to scenario and are themselves chosen using target labels, so the gap realized at deployment can only be
         larger.
         <button type="button" class="zoom-hint">View full size</button>
@@ -352,7 +352,7 @@
       <strong>Within-algorithm Spearman correlation ρ.</strong> Blue denotes correlation in the intended direction
       (darker is stronger), warm red the opposite. Validators are moderately informative on average, but none is
       consistently reliable across all scenarios or algorithms, and the most reliable one differs from column to
-      column — e.g. Source-Risk reaches ρ = 0.68 on ADNI-2 → ADNI-3 but drops to 0.08 on Child CXR → RSNA.
+      column — e.g. Source-Risk reaches ρ = 0.68 on ADNI-2 → ADNI-3 but drops to 0.07 on Child CXR → RSNA.
     </p>
 
     <figure class="figure-block is-zoomable" style="max-width: 660px; margin-left: auto; margin-right: auto;">
@@ -396,16 +396,16 @@
         <tbody>
           <tr><td>ADNI-1 → ADNI-2</td><td>89.0</td><td>78.6</td><td>83.0</td><td>84.0</td><td>86.5</td><td>87.5</td><td>85.1</td><td>93.2</td></tr>
           <tr><td>ADNI-1 → ADNI-3</td><td>88.2</td><td>78.7</td><td>80.8</td><td>81.1</td><td>81.2</td><td>83.3</td><td>84.5</td><td>94.2</td></tr>
-          <tr><td>ADNI-2 → ADNI-1</td><td>85.1</td><td>75.2</td><td>77.8</td><td>80.4</td><td>82.0</td><td>82.8</td><td>82.8</td><td>89.1</td></tr>
-          <tr><td>ADNI-2 → ADNI-3</td><td>86.4</td><td>79.5</td><td>79.9</td><td>83.5</td><td>81.3</td><td>83.6</td><td>84.2</td><td>92.1</td></tr>
+          <tr><td>ADNI-2 → ADNI-1</td><td>84.5</td><td>76.8</td><td>79.0</td><td>81.1</td><td>82.2</td><td>83.3</td><td>82.5</td><td>89.2</td></tr>
+          <tr><td>ADNI-2 → ADNI-3</td><td>86.4</td><td>79.4</td><td>79.7</td><td>84.5</td><td>82.7</td><td>83.9</td><td>87.7</td><td>92.8</td></tr>
           <tr><td>ADNI-1+2 → AIBL</td><td>89.9</td><td>81.6</td><td>82.9</td><td>82.9</td><td>85.1</td><td>86.0</td><td>89.0</td><td>93.8</td></tr>
           <tr><td>RSNA → Child CXR</td><td>80.0</td><td>76.5</td><td>78.4</td><td>81.5</td><td>83.1</td><td>85.0</td><td>79.1</td><td>89.7</td></tr>
-          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>74.3</td><td>75.7</td><td>76.5</td><td>76.9</td><td>76.9</td><td>75.4</td><td>78.4</td></tr>
-          <tr><td>LDD → CRD</td><td>81.8</td><td>80.8</td><td>81.4</td><td>81.9</td><td>81.7</td><td>82.2</td><td>81.9</td><td>83.5</td></tr>
+          <tr><td>Child CXR → RSNA</td><td>74.3</td><td>74.6</td><td>75.6</td><td>75.6</td><td>76.6</td><td>76.4</td><td>75.1</td><td>78.1</td></tr>
+          <tr><td>LDD → CRD</td><td>81.2</td><td>80.6</td><td>81.7</td><td>82.2</td><td>82.4</td><td>82.4</td><td>81.8</td><td>83.6</td></tr>
           <tr><td>CRD → LDD</td><td>54.1</td><td>77.8</td><td>78.7</td><td>80.6</td><td>80.0</td><td>80.1</td><td>78.9</td><td>83.2</td></tr>
-          <tr><td>SLO → OCT</td><td>64.0</td><td>58.8</td><td>61.3</td><td>60.4</td><td>61.1</td><td>61.7</td><td>58.4</td><td>65.3</td></tr>
-          <tr><td>OCT → SLO</td><td>66.2</td><td>59.5</td><td>59.9</td><td>63.3</td><td>64.1</td><td>63.8</td><td>65.1</td><td>67.4</td></tr>
-          <tr class="is-reference"><td>Mean</td><td>78.1</td><td>74.7</td><td>76.4</td><td>77.8</td><td>78.4</td><td>79.3</td><td>78.6</td><td>84.5</td></tr>
+          <tr><td>SLO → OCT</td><td>63.2</td><td>58.7</td><td>61.1</td><td>60.9</td><td>61.5</td><td>62.9</td><td>58.9</td><td>65.9</td></tr>
+          <tr><td>OCT → SLO</td><td>66.3</td><td>60.0</td><td>60.9</td><td>63.5</td><td>64.5</td><td>64.4</td><td>62.7</td><td>67.4</td></tr>
+          <tr class="is-reference"><td>Mean</td><td>77.9</td><td>74.8</td><td>76.5</td><td>78.0</td><td>78.7</td><td>79.6</td><td>78.7</td><td>84.6</td></tr>
         </tbody>
       </table>
     </div>
@@ -436,7 +436,7 @@
             <h3>A capable adapted model usually exists</h3>
             <p>
               Under Oracle selection, the across-algorithm pool exceeds SourceOnly in every scenario and
-              approaches TargetOnly (mean 84.5% vs. 87.5%). Adaptation itself is often effective.
+              approaches TargetOnly (mean 84.6% vs. 87.5%). Adaptation itself is often effective.
             </p>
           </div>
         </div>
@@ -445,7 +445,7 @@
           <div>
             <h3>Selecting it without labels is the bottleneck</h3>
             <p>
-              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 5.9. Because the
+              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 6.0. Because the
               best validator is itself chosen using target labels, the gap at deployment can only be larger.
             </p>
           </div>
