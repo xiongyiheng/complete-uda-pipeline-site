@@ -27,17 +27,12 @@
   var select = document.getElementById('scenario-select');
   var thead = document.getElementById('results-thead');
   var tbody = document.getElementById('results-tbody');
-  var statButtons = document.querySelectorAll('.segmented button[data-stat]');
-  var captionStat = document.getElementById('caption-stat');
-  var captionHint = document.getElementById('caption-hint');
-  var currentStat = 'mean';
 
   function prettyCell(cell) {
     // Split "88.2±2.0" into value + spread for rendering and tooltip.
     var m = String(cell).split('±');
     if (m.length === 2) {
-      var label = currentStat === 'median' ? 'median (95% CI): ' + m[0] + ' (' + m[1] + ')' : 'mean ± std: ' + m[0] + ' ± ' + m[1];
-      return { value: m[0], title: label };
+      return { value: m[0], title: 'mean ± std: ' + m[0] + ' ± ' + m[1] };
     }
     return { value: cell, title: cell };
   }
@@ -45,7 +40,7 @@
   function renderScenario(key) {
     var scenario = DATA.filter(function (d) { return d.key === key; })[0];
     if (!scenario) return;
-    var table = scenario[currentStat];
+    var table = scenario.mean;
     if (!table) return;
 
     // Header
@@ -99,17 +94,6 @@
 
     select.addEventListener('change', function () {
       renderScenario(select.value);
-    });
-
-    statButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        statButtons.forEach(function (b) { b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        currentStat = btn.dataset.stat;
-        if (captionStat) captionStat.textContent = currentStat === 'median' ? 'median with 95% CI' : 'mean ± std';
-        if (captionHint) captionHint.textContent = currentStat === 'median' ? '95% confidence interval' : 'standard deviation';
-        renderScenario(select.value);
-      });
     });
   }
 
