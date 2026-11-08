@@ -133,7 +133,7 @@
         <source srcset="./static/images/teaser.webp" type="image/webp">
         <img src="./static/images/teaser.png"
              alt="Diagram of the complete UDA pipeline at deployment: adaptation combines UDA algorithms and hyperparameters to produce many trained models, and a question mark asks which one to select for deployment."
-             width="1400" height="629" loading="eager" decoding="async">
+             width="1399" height="619" loading="eager" decoding="async">
       </picture>
       <figcaption class="figure-caption">
         <strong>The complete UDA pipeline at deployment.</strong> Adaptation trains models on a labeled
@@ -237,7 +237,7 @@
         <strong>A large selection gap.</strong> The model selected by the best validator
         (<strong>Best Validator</strong>), by the best algorithm–validator pair (<strong>Best Pair</strong>),
         and by the across-algorithm <em>Oracle</em>. The first two fall below the <em>Oracle</em> in every
-        scenario, with the gap up to 10.6 points (RSNA → Child CXR) and averaging 6.4. Both differ from scenario
+        scenario, with the gap up to 11.1 points (CRD → LDD) and averaging 6.3. Both differ from scenario
         to scenario and are themselves chosen using target labels, so the gap realized at deployment can only be
         larger.
         <button type="button" class="zoom-hint">View full size</button>
@@ -391,16 +391,16 @@
         <tbody>
           <tr><td>ADNI-1 → ADNI-2</td><td>89.0</td><td>78.6</td><td>83.0</td><td>84.0</td><td>86.5</td><td>87.5</td><td>85.7</td><td>93.2</td></tr>
           <tr><td>ADNI-1 → ADNI-3</td><td>88.2</td><td>78.7</td><td>80.8</td><td>81.1</td><td>81.2</td><td>83.3</td><td>84.5</td><td>94.2</td></tr>
-          <tr><td>ADNI-2 → ADNI-1</td><td>84.2</td><td>76.8</td><td>79.0</td><td>81.1</td><td>82.2</td><td>83.3</td><td>82.0</td><td>89.2</td></tr>
+          <tr><td>ADNI-2 → ADNI-1</td><td>85.0</td><td>75.2</td><td>77.8</td><td>80.4</td><td>82.0</td><td>82.8</td><td>82.8</td><td>89.1</td></tr>
           <tr><td>ADNI-2 → ADNI-3</td><td>86.7</td><td>79.3</td><td>79.4</td><td>84.3</td><td>82.2</td><td>83.1</td><td>84.8</td><td>92.0</td></tr>
           <tr><td>ADNI-1+2 → AIBL</td><td>89.9</td><td>81.6</td><td>82.9</td><td>82.9</td><td>85.1</td><td>86.0</td><td>89.0</td><td>93.8</td></tr>
           <tr><td>RSNA → Child CXR</td><td>80.0</td><td>76.5</td><td>78.4</td><td>81.5</td><td>83.1</td><td>85.0</td><td>79.1</td><td>89.7</td></tr>
-          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>74.3</td><td>75.7</td><td>76.5</td><td>76.9</td><td>76.9</td><td>75.4</td><td>78.4</td></tr>
-          <tr><td>LDD → CRD</td><td>81.3</td><td>80.7</td><td>81.6</td><td>82.1</td><td>82.3</td><td>82.2</td><td>81.8</td><td>83.5</td></tr>
-          <tr><td>CRD → LDD</td><td>55.1</td><td>77.1</td><td>78.5</td><td>80.5</td><td>80.4</td><td>80.5</td><td>74.9</td><td>82.9</td></tr>
-          <tr><td>SLO → OCT</td><td>63.2</td><td>59.3</td><td>61.3</td><td>60.8</td><td>61.3</td><td>62.6</td><td>60.1</td><td>65.6</td></tr>
+          <tr><td>Child CXR → RSNA</td><td>74.4</td><td>75.1</td><td>76.5</td><td>76.3</td><td>76.6</td><td>76.9</td><td>75.5</td><td>78.3</td></tr>
+          <tr><td>LDD → CRD</td><td>81.3</td><td>80.5</td><td>81.5</td><td>81.9</td><td>82.1</td><td>82.2</td><td>82.0</td><td>83.6</td></tr>
+          <tr><td>CRD → LDD</td><td>55.3</td><td>76.4</td><td>78.8</td><td>80.1</td><td>79.8</td><td>80.1</td><td>71.5</td><td>82.6</td></tr>
+          <tr><td>SLO → OCT</td><td>62.4</td><td>60.3</td><td>61.4</td><td>61.2</td><td>61.5</td><td>63.3</td><td>62.9</td><td>65.7</td></tr>
           <tr><td>OCT → SLO</td><td>66.3</td><td>60.0</td><td>60.9</td><td>63.5</td><td>64.5</td><td>64.4</td><td>62.7</td><td>67.4</td></tr>
-          <tr class="is-reference"><td>Mean</td><td>78.0</td><td>74.8</td><td>76.5</td><td>78.0</td><td>78.7</td><td>79.5</td><td>78.2</td><td>84.5</td></tr>
+          <tr class="is-reference"><td>Mean</td><td>78.0</td><td>74.8</td><td>76.5</td><td>77.9</td><td>78.6</td><td>79.5</td><td>78.2</td><td>84.5</td></tr>
         </tbody>
       </table>
     </div>
@@ -440,7 +440,7 @@
           <div>
             <h3>Selecting it without labels is the bottleneck</h3>
             <p>
-              The best validator leaves a gap to the Oracle of up to 10.6 points, averaging 6.4. Because the
+              The best validator leaves a gap to the Oracle of up to 11.1 points, averaging 6.3. Because the
               best validator is itself chosen using target labels, the gap at deployment can only be larger.
             </p>
           </div>
